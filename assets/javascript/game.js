@@ -7,7 +7,8 @@ const myQuestions = [
             c: "Paper",
             d: "Post-its"
         },
-        correctAnswer: "d"
+        correctAnswer: "d",
+        image: "assets/images/movieposter.jpg"
     },
     {
         question: "What brand is Milton's stapler?",
@@ -17,7 +18,8 @@ const myQuestions = [
             c: "Swingline",
             d: "Office Depot"
         },
-        correctAnswer: "c"
+        correctAnswer: "c",
+        image: "assets/images/Swingline.gif"
     },
     {
         question: "How many pieced of flare did Joanna's co-worker, Brian, wear?",
@@ -27,7 +29,8 @@ const myQuestions = [
             c: "15",
             d: "0"
         },
-        correctAnswer: "b"
+        correctAnswer: "b",
+        image: "assets/images/Flare.gif"
     },
     {
         question: "What is the name of the character that shares their name with an American singer/songwriter?",
@@ -37,7 +40,8 @@ const myQuestions = [
             c: "Bill Hudson",
             d: "Michael Bolton"
         },
-        correctAnswer: "d"
+        correctAnswer: "d",
+        image: "assets/images/MichaelBolton.gif"
     },
     {
         question: "What piece of office equipment do Peter, Michael and Samir destroy?",
@@ -47,7 +51,8 @@ const myQuestions = [
             c: "Copier",
             d: "Stapler"
         },
-        correctAnswer: "a"
+        correctAnswer: "a",
+        image: "assets/images/printer.gif"
     },
     {
         question: "What are the names of the two men that are in charge of evaluating the staff?",
@@ -57,7 +62,8 @@ const myQuestions = [
             c: "Jim",
             d: "Lawrence"
         },
-        correctAnswer: "b"
+        correctAnswer: "b",
+        image: "assets/images/bobs.gif"
     },
     {
         question: "What is the name of the company that Peter works for?",
@@ -67,7 +73,8 @@ const myQuestions = [
             c: "Initech",
             d: "Dunder Mifflin"
         },
-        correctAnswer: "c"
+        correctAnswer: "c",
+        image: "assets/images/Initech.jpg"
     },
     {
         question: "How much 'actual work' did Peter say he does?",
@@ -77,7 +84,8 @@ const myQuestions = [
             c: "15 minutes each month",
             d: "none"
         },
-        correctAnswer: "b"
+        correctAnswer: "b",
+        image: "assets/images/actualwork.gif"
     }
 ]
 
