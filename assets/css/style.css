@@ -1,0 +1,15 @@
+body{
+    background: url("../images/officespacebackground.jpg");   
+}
+
+#container{
+    background-color: white;
+    margin: 0 auto;
+    width: 900px;
+    height: 700px;
+}
+
+h1{
+    text-align: center;
+
+}
