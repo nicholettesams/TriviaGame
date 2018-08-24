@@ -20,7 +20,7 @@ const myQuestions = [
         correctAnswer: "c"
     },
     {
-        question: "How many pieced of flare did Joanna's co-worker, Brian,  wear?",
+        question: "How many pieced of flare did Joanna's co-worker, Brian, wear?",
         answers: {
             a: "47",
             b: "37",
@@ -80,3 +80,31 @@ const myQuestions = [
         correctAnswer: "b"
     }
 ]
+
+var userAnswer = [];
+var totalCorrect = 0;
+var totalIncorrect = 0;
+var totalUnanswered = 0;
+
+function buildQuiz(quizNumber){
+    console.log("buildQuiz")
+    console.log(myQuestions[quizNumber].question)
+
+    //display 
+    $("#question").text(myQuestions[quizNumber].question)
+
+    for (letter in myQuestions[quizNumber].answers){
+        console.log(myQuestions[quizNumber].answers[letter])
+        $("#answers").append("<input type='radio'>" + myQuestions[quizNumber].answers[letter] + "</input>")
+    }
+    
+
+}   
+
+//Every 30 seconds display a new question and answers
+var i = 0;
+//for(i; i<myQuestions.length; i++){
+    buildQuiz(i);
+//}
+
+
