@@ -93,6 +93,7 @@ var userAnswer = [];
 var totalCorrect = 0;
 var totalIncorrect = 0;
 var totalUnanswered = 0;
+var QuestionCount = 0;
 
 function buildQuiz(quizNumber){
     console.log("buildQuiz")
@@ -103,16 +104,28 @@ function buildQuiz(quizNumber){
 
     for (letter in myQuestions[quizNumber].answers){
         console.log(myQuestions[quizNumber].answers[letter])
-        $("#answers").append("<input type='radio'>" + myQuestions[quizNumber].answers[letter] + "</input>")
+        $("#answers").append("<input type='radio' class='answer-radio'>" + myQuestions[quizNumber].answers[letter] + "</input>")
     }
     
 
 }   
 
-//Every 30 seconds display a new question and answers
-var i = 0;
-//for(i; i<myQuestions.length; i++){
-    buildQuiz(i);
-//}
+//If a user answers the question, need an on click event
+//$(".answer-radio").click
+//Check to see if correct or incorrect
+//if this === myQuestions[quizNumber].correctAnswer
+//if correct,  totalCorrect++
+//if incorrect, totalIncorrect++
+//reset timer
+//call buildQuiz with next question
+//questionCount++
+buildQuiz(questionCount);
+
+//If time runs out
+//totalUnanswered++
+//reset timer
+//call buildQuiz with next question
+//questionCount++
+//buildQuiz(questionCount);
 
 
