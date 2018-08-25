@@ -120,6 +120,18 @@ var displayCorrectAnswer = function(){
 
 
 }
+var displayResults = function(){
+    //When game is over display results of the game
+    $("#question").empty
+    $("#answers").empty
+    $("#correct-answer").empty
+    $("#results").text("")
+
+
+}
+
+
+
 
 
 //If a user answers the question, need an on click event
@@ -136,7 +148,12 @@ $(".answer-radio").on("click", function(){
     resetTimer()
     //display next question
     questionCount++
-    buildQuiz(questionCount);
+    if (questionCount < 9) {
+        buildQuiz(questionCount);
+    } else {
+        displayResults();
+    }
+    
 
 });
 
@@ -150,7 +167,11 @@ if (time === 0) {
     resetTimer()
     //call buildQuiz with next question
     questionCount++
-    buildQuiz(questionCount);
+    if (questionCount < 9) {
+        buildQuiz(questionCount);
+    } else {
+        displayResults();
+    }
 
 }
 
