@@ -94,7 +94,8 @@ var totalCorrect = 0;
 var totalIncorrect = 0;
 var totalUnanswered = 0;
 var QuestionCount = 0;
-var time = 0;
+var time = 30; //30 seconds to answer each question
+var intervalId = 0;
 
 var buildQuiz = function (quizNumber){
     console.log("buildQuiz")
@@ -112,7 +113,24 @@ var buildQuiz = function (quizNumber){
 }   
 
 var resetTimer = function(){
+    time = 30; 
+    clearInterval(intervalId)
+    intervalId = setInterval(count, 1000) //one second
 
+}
+
+var count = function() {
+
+    //  decrement time by 1
+    time--
+    console.log(time);
+
+    //  TODO: Get the current time, pass that into the stopwatch.timeConverter function,
+    //        and save the result in a variable.
+    var currentTime = timeConverter(time)
+
+    //  TODO: Use the variable you just created to show the converted time in the "display" div.
+    $("#timer").text(currentTime)
 
 }
 
@@ -120,18 +138,34 @@ var displayCorrectAnswer = function(){
 
 
 }
-var displayResults = function(){
-    //When game is over display results of the game
-    $("#question").empty
-    $("#answers").empty
-    $("#correct-answer").empty
-    $("#results").text("")
 
+var timeConverter = function(t) {
 
-}
+    //  Takes the current time in seconds and convert it to minutes and seconds (mm:ss).
+    var minutes = Math.floor(t / 60);
+    var seconds = t - (minutes * 60);
 
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
 
+    if (minutes === 0) {
+      minutes = "00";
+    }
 
+    else if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+
+    return minutes + ":" + seconds;
+  }
+
+//START THE GAME
+$("#start").on("click", function(){
+    questionCount = 1;
+    buildQuiz(questionCount);
+    resetTimer();
+});
 
 
 //If a user answers the question, need an on click event
@@ -175,6 +209,12 @@ if (time === 0) {
 
 }
 
-
-
-
+var displayResults = function(){
+    //When game is over display results of the game
+    clearInterval(intervalId)
+    $("#question").empty
+    $("#answers").empty
+    $("#correct-answer").empty
+    //TODO: display win/loss, display restart button
+    $("#results").text("")
+}
