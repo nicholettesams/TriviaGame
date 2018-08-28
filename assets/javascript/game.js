@@ -105,20 +105,24 @@ var displayResults = function(){
     //When game is over display results of the game
     console.log("displayResults")
     clearInterval(intervalId)
-    $("#question").empty
-    $("#answers").empty
-    $("#correct-answer").empty
-    //display restart button
-    $("#results").append("Correct: " + totalCorrect)
-    $("#results").append("Incorrect: " + totalIncorrect)
-    $("#results").append("Unanswered: " + totalUnanswered)
+    $("#timer").empty()
+    $("#question").empty()
+    $("#answers").empty()
+    $("#correct-answer").empty()
+    
+    $("#results").append("<p>Correct: " + totalCorrect + "</p>")
+    $("#results").append("<p>Incorrect: " + totalIncorrect + "</p>")
+    $("#results").append("<p>Unanswered: " + totalUnanswered + "</p>")
+
+    //display start button
+    $("#start").show()
 }
 
 var buildQuiz = function (quizNumber){
-    console.log("buildQuiz")
+    console.log("buildQuiz: " + quizNumber)
     
 
-    if (quizNumber < 9) {
+    if (quizNumber < 8) {
         console.log(myQuestions[quizNumber].question)
         resetTimer()
 
@@ -196,15 +200,16 @@ var timeConverter = function(t) {
   $(document).ready(function() {
     //START THE GAME
     $("#start").on("click", function(){
+        $("#start").hide()
         questionCount = 0;
         buildQuiz(questionCount);
     });
 
     //If a user answers the question, need an on click event
-    $(".answer-radio").on("click", function(){
+    $(document).on('click', '.answer-radio', function(){
         //Check to see if correct or incorrect
-        console.log("answer clicked:" + this.attr("letter"))
-        if (this.attr("letter") === myQuestions[quizNumber].correctAnswer){
+        console.log("answer clicked:" + $(this).attr("letter"))
+        if ($(this).attr("letter") === myQuestions[questionCount].correctAnswer){
             totalCorrect++
         } else{
             totalIncorrect++
