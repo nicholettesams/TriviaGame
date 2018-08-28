@@ -95,6 +95,7 @@ var totalUnanswered = 0;
 var QuestionCount = 0;
 var time = 30; //30 seconds to answer each question
 var intervalId = 0;
+var correctID = 0;
 
 var displayCorrectAnswer = function(){
     console.log("displayCorrectAnswer")
@@ -166,7 +167,8 @@ var count = function() {
         console.log("times up")
         totalUnanswered++
         //display correct answer and image
-        displayCorrectAnswer()
+        clearInterval(correctID)
+        correctID = setInterval(displayCorrectAnswer, 3000)  
         
         //call buildQuiz with next question
         questionCount++
@@ -216,7 +218,8 @@ var timeConverter = function(t) {
             totalIncorrect++
         }
         //display correct answer and image
-        displayCorrectAnswer()
+        clearInterval(correctID)
+        correctID = setInterval(displayCorrectAnswer, 3000) 
 
         //display next question
         questionCount++
