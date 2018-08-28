@@ -100,7 +100,7 @@ var displayCorrectAnswer = function(){
     console.log("questionCount:" + questionCount)
     console.log("displayCorrectAnswer: " + myQuestions[questionCount].correctAnswer)
     console.log("display image:" + myQuestions[questionCount].image)
-    $("#correct-answer").append("<h2>Correct Answer: " + myQuestions[questionCount].correctAnswer + "</h2><br><img src=" + myQuestions[questionCount].image + " width='400px'>")
+    $("#correct-answer").html("<h2>Correct Answer: " + myQuestions[questionCount].correctAnswer + "</h2><br><img src=" + myQuestions[questionCount].image + " width='400px'>")
 }
 
 var displayResults = function(){
