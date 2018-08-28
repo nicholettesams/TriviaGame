@@ -92,14 +92,15 @@ const myQuestions = [
 var totalCorrect = 0;
 var totalIncorrect = 0;
 var totalUnanswered = 0;
-var QuestionCount = 0;
+var questionCount = 0;
 var time = 30; //30 seconds to answer each question
 var intervalId = 0;
-var correctID = 0;
 
 var displayCorrectAnswer = function(){
-    console.log("displayCorrectAnswer")
-    $("#correct-answers").html("<h2>Correct Answer: " + myQuestions[QuestionCount].corectAnswer + "</h2><br><img src=" + myQuestions[QuestionCount].image + " width='400px'>")
+    console.log("questionCount:" + questionCount)
+    console.log("displayCorrectAnswer: " + myQuestions[questionCount].correctAnswer)
+    console.log("display image:" + myQuestions[questionCount].image)
+    $("#correct-answers").html("<h2>Correct Answer: " + myQuestions[questionCount].correctAnswer + "</h2><br><img src=" + myQuestions[questionCount].image + " width='400px'>")
 }
 
 var displayResults = function(){
@@ -167,12 +168,11 @@ var count = function() {
         console.log("times up")
         totalUnanswered++
         //display correct answer and image
-        clearInterval(correctID)
-        correctID = setInterval(displayCorrectAnswer, 3000)  
+        displayCorrectAnswer()
         
-        //call buildQuiz with next question
+        //call buildQuiz with next question after a 4 second delay
         questionCount++
-        buildQuiz(questionCount);
+        setTimeout(buildQuiz(questionCount), 4000)
     }
 }
 
@@ -218,12 +218,11 @@ var timeConverter = function(t) {
             totalIncorrect++
         }
         //display correct answer and image
-        clearInterval(correctID)
-        correctID = setInterval(displayCorrectAnswer, 3000) 
+        displayCorrectAnswer()
 
-        //display next question
+        //call buildQuiz with next question after a 4 second delay
         questionCount++
-        buildQuiz(questionCount);
+        setTimeout(buildQuiz(questionCount), 4000)
     
     });
 
