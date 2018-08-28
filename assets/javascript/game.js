@@ -55,7 +55,7 @@ const myQuestions = [
         image: "assets/images/printer.gif"
     },
     {
-        question: "What are the names of the two men that are in charge of evaluating the staff?",
+        question: "What is the shared name of the two men that are in charge of evaluating the staff?",
         answers: {
             a: "Steve",
             b: "Bob",
@@ -89,7 +89,6 @@ const myQuestions = [
     }
 ]
 
-var userAnswer = [];
 var totalCorrect = 0;
 var totalIncorrect = 0;
 var totalUnanswered = 0;
@@ -97,26 +96,51 @@ var QuestionCount = 0;
 var time = 30; //30 seconds to answer each question
 var intervalId = 0;
 
+var displayCorrectAnswer = function(){
+    console.log("displayCorrectAnswer")
+    $("#correct-answers").html("<h2>Correct Answer: " + myQuestions[QuestionCount].corectAnswer + "</h2><br><img src=" + myQuestions[QuestionCount].image + " width='400px'>")
+}
+
+var displayResults = function(){
+    //When game is over display results of the game
+    console.log("displayResults")
+    clearInterval(intervalId)
+    $("#question").empty
+    $("#answers").empty
+    $("#correct-answer").empty
+    //display restart button
+    $("#results").append("Correct: " + totalCorrect)
+    $("#results").append("Incorrect: " + totalIncorrect)
+    $("#results").append("Unanswered: " + totalUnanswered)
+}
+
 var buildQuiz = function (quizNumber){
     console.log("buildQuiz")
-    console.log(myQuestions[quizNumber].question)
-
-    //display 
-    $("#question").text(myQuestions[quizNumber].question)
-
-    for (letter in myQuestions[quizNumber].answers){
-        console.log(myQuestions[quizNumber].answers[letter])
-        $("#answers").append("<input type='radio' class='answer-radio' letter='" + letter + "'>" + myQuestions[quizNumber].answers[letter] + "</input>")
-    }
     
 
+    if (quizNumber < 9) {
+        console.log(myQuestions[quizNumber].question)
+        resetTimer()
+
+        //display 
+        $("#question").text(myQuestions[quizNumber].question)
+    
+        $("#answers").empty()
+        for (letter in myQuestions[quizNumber].answers){
+            console.log(myQuestions[quizNumber].answers[letter])
+            $("#answers").append("<input type='radio' class='answer-radio' letter='" + letter + "'>" + myQuestions[quizNumber].answers[letter] + "</input>")
+        }
+    } else {
+        displayResults();
+    }
+
+    
 }   
 
 var resetTimer = function(){
     time = 30; 
     clearInterval(intervalId)
     intervalId = setInterval(count, 1000) //one second
-
 }
 
 var count = function() {
@@ -125,19 +149,28 @@ var count = function() {
     time--
     console.log(time);
 
-    //  TODO: Get the current time, pass that into the stopwatch.timeConverter function,
+    //  Get the current time, pass that into the timeConverter function,
     //        and save the result in a variable.
     var currentTime = timeConverter(time)
 
-    //  TODO: Use the variable you just created to show the converted time in the "display" div.
+    //  Use the variable you just created to show the converted time in the "timer" section.
     $("#timer").text(currentTime)
 
+
+    //If time runs out
+    if (time === 0) {
+        console.log("times up")
+        totalUnanswered++
+        //display correct answer and image
+        displayCorrectAnswer()
+        
+        //call buildQuiz with next question
+        questionCount++
+        buildQuiz(questionCount);
+    }
 }
 
-var displayCorrectAnswer = function(){
 
-
-}
 
 var timeConverter = function(t) {
 
@@ -160,61 +193,31 @@ var timeConverter = function(t) {
     return minutes + ":" + seconds;
   }
 
-//START THE GAME
-$("#start").on("click", function(){
-    questionCount = 1;
-    buildQuiz(questionCount);
-    resetTimer();
-});
-
-
-//If a user answers the question, need an on click event
-$(".answer-radio").on("click", function(){
-    //Check to see if correct or incorrect
-    if (this.attr("letter") === myQuestions[quizNumber].correctAnswer){
-        totalCorrect++
-    } else{
-        totalIncorrect++
-    }
-    //display correct answer and image
-    displayCorrectAnswer()
-    //reset timer
-    resetTimer()
-    //display next question
-    questionCount++
-    if (questionCount < 9) {
+  $(document).ready(function() {
+    //START THE GAME
+    $("#start").on("click", function(){
+        questionCount = 0;
         buildQuiz(questionCount);
-    } else {
-        displayResults();
-    }
+    });
+
+    //If a user answers the question, need an on click event
+    $(".answer-radio").on("click", function(){
+        //Check to see if correct or incorrect
+        console.log("answer clicked:" + this.attr("letter"))
+        if (this.attr("letter") === myQuestions[quizNumber].correctAnswer){
+            totalCorrect++
+        } else{
+            totalIncorrect++
+        }
+        //display correct answer and image
+        displayCorrectAnswer()
+
+        //display next question
+        questionCount++
+        buildQuiz(questionCount);
     
+    });
 
-});
+  });
 
-
-//If time runs out
-if (time === 0) {
-    totalUnanswered++
-    //display correct answer and image
-    displayCorrectAnswer()
-    //reset timer
-    resetTimer()
-    //call buildQuiz with next question
-    questionCount++
-    if (questionCount < 9) {
-        buildQuiz(questionCount);
-    } else {
-        displayResults();
-    }
-
-}
-
-var displayResults = function(){
-    //When game is over display results of the game
-    clearInterval(intervalId)
-    $("#question").empty
-    $("#answers").empty
-    $("#correct-answer").empty
-    //TODO: display win/loss, display restart button
-    $("#results").text("")
-}
+  
