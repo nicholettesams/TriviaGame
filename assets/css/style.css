@@ -21,11 +21,15 @@ body{
     font-size: 24px;
 }
 
-img{
+#title{
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+}
+
+#correct-answer img{
+    max-height: 300px;
 }
 
 h1{
