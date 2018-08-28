@@ -112,41 +112,51 @@ var displayResults = function(){
     $("#answers").empty()
     $("#correct-answer").empty()
     
-    $("#results").append("<p>Correct: " + totalCorrect + "</p>")
-    $("#results").append("<p>Incorrect: " + totalIncorrect + "</p>")
-    $("#results").append("<p>Unanswered: " + totalUnanswered + "</p>")
+    $("#results").append("<h2>Correct: " + totalCorrect + "</h2>")
+    $("#results").append("<h2>Incorrect: " + totalIncorrect + "</h2>")
+    $("#results").append("<h2>Unanswered: " + totalUnanswered + "</h2>")
 
-    //display start button
+    //display start button so user can reset the game
     $("#start").show()
 }
 
-var buildQuiz = function (quizNumber){
-    console.log("buildQuiz: " + quizNumber)
-    
+var buildQuiz = function (){
+    console.log("buildQuiz: " + questionCount)
 
-    if (quizNumber < 8) {
-        console.log(myQuestions[quizNumber].question)
+    //clear answer from previous question
+    $("#correct-answer").empty()
+    
+    //Check to see if we are on the last question
+    if (questionCount < 8) {
+        //if more questions, display question
+        console.log(myQuestions[questionCount].question)
+        //reset the timer
         resetTimer()
 
-        //display 
-        $("#question").text(myQuestions[quizNumber].question)
+        //display question
+        $("#question").text(myQuestions[questionCount].question)
     
+        //display answers
         $("#answers").empty()
-        for (letter in myQuestions[quizNumber].answers){
-            console.log(myQuestions[quizNumber].answers[letter])
-            $("#answers").append("<input type='radio' class='answer-radio' letter='" + letter + "'>" + myQuestions[quizNumber].answers[letter] + "</input>")
+        for (letter in myQuestions[questionCount].answers){
+            console.log(myQuestions[questionCount].answers[letter])
+            $("#answers").append("<input type='radio' class='answer-radio' letter='" + letter + "'>" + myQuestions[questionCount].answers[letter] + "</input>")
         }
     } else {
+        //if no more questions, display results of the quiz
         displayResults();
     }
 
-    
 }   
 
 var resetTimer = function(){
     time = 30; 
     clearInterval(intervalId)
     intervalId = setInterval(count, 1000) //one second
+}
+
+var stopTimer = function() {
+    clearInterval(intervalId)
 }
 
 var count = function() {
@@ -168,15 +178,14 @@ var count = function() {
         console.log("times up")
         totalUnanswered++
         //display correct answer and image
+        stopTimer()
         displayCorrectAnswer()
         
         //call buildQuiz with next question after a 4 second delay
         questionCount++
-        setTimeout(buildQuiz(questionCount), 4000)
+        setTimeout(buildQuiz, 4000)
     }
 }
-
-
 
 var timeConverter = function(t) {
 
@@ -202,10 +211,18 @@ var timeConverter = function(t) {
   $(document).ready(function() {
     //START THE GAME
     $("#start").on("click", function(){
+        //clear results
+        totalCorrect = 0;
+        totalIncorrect = 0;
+        totalUnanswered = 0;
         $("#results").empty()
+
+        //Hide button
         $("#start").hide()
+
+        //show first question
         questionCount = 0;
-        buildQuiz(questionCount);
+        buildQuiz();
     });
 
     //If a user answers the question, need an on click event
@@ -218,11 +235,12 @@ var timeConverter = function(t) {
             totalIncorrect++
         }
         //display correct answer and image
+        stopTimer()
         displayCorrectAnswer()
 
         //call buildQuiz with next question after a 4 second delay
         questionCount++
-        setTimeout(buildQuiz(questionCount), 4000)
+        setTimeout(buildQuiz, 4000)
     
     });
 
