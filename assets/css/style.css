@@ -8,6 +8,17 @@ body{
     margin: 0 auto;
     width: 900px;
     height: 700px;
+    text-align: center;
+}
+
+#timer{
+    font-size: 24px;
+}
+
+#start{
+    height: 70px;
+    width: 100px;
+    font-size: 24px;
 }
 
 img{
