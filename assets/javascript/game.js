@@ -200,6 +200,7 @@ var timeConverter = function(t) {
   $(document).ready(function() {
     //START THE GAME
     $("#start").on("click", function(){
+        $("#results").empty()
         $("#start").hide()
         questionCount = 0;
         buildQuiz(questionCount);
