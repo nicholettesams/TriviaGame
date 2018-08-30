@@ -123,7 +123,7 @@ var displayResults = function(){
 }
 
 var buildQuiz = function (){
-    
+
     //clear answer from previous question
     $("#correct-answer").empty()
     
@@ -237,8 +237,6 @@ var timeConverter = function(t) {
         }
         //display correct answer and image
         displayCorrectAnswer()
-
-        questionAnswered = true
 
         //call buildQuiz with next question after a 4 second delay
         questionCount++
