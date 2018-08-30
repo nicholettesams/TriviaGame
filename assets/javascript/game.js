@@ -99,48 +99,48 @@ var intervalId = 0;
 var displayCorrectAnswer = function(){
 
     //Stop the timer
-    stopTimer()
+    stopTimer();
 
     //Display correct answer text and image
-    var correctLetter = myQuestions[questionCount].correctAnswer
-    $("#correct-answer").html("<h2>Correct Answer: " + myQuestions[questionCount].answers[correctLetter] + "</h2><br><img src=" + myQuestions[questionCount].image + " width='400px'>")
+    var correctLetter = myQuestions[questionCount].correctAnswer;
+    $("#correct-answer").html("<h2>Correct Answer: " + myQuestions[questionCount].answers[correctLetter] + "</h2><br><img src=" + myQuestions[questionCount].image + ">");
 }
 
 var displayResults = function(){
     //When game is over display results of the game
-    clearInterval(intervalId)
-    $("#timer").empty()
-    $("#question").empty()
-    $("#answers").empty()
-    $("#correct-answer").empty()
+    clearInterval(intervalId);
+    $("#timer").empty();
+    $("#question").empty();
+    $("#answers").empty();
+    $("#correct-answer").empty();
     
-    $("#results").append("<h2>Correct: " + totalCorrect + "</h2>")
-    $("#results").append("<h2>Incorrect: " + totalIncorrect + "</h2>")
-    $("#results").append("<h2>Unanswered: " + totalUnanswered + "</h2>")
+    $("#results").append("<h2>Correct: " + totalCorrect + "</h2>");
+    $("#results").append("<h2>Incorrect: " + totalIncorrect + "</h2>");
+    $("#results").append("<h2>Unanswered: " + totalUnanswered + "</h2>");
 
     //display start button so user can reset the game
-    $("#start").show()
+    $("#start").show();
 }
 
 var buildQuiz = function (){
 
     //clear answer from previous question
-    $("#correct-answer").empty()
+    $("#correct-answer").empty();
     
     //Check to see if we are on the last question
     if (questionCount < 8) {
         //if more questions, display question
     
         //reset the timer
-        resetTimer()
+        resetTimer();
 
         //display question
-        $("#question").text(myQuestions[questionCount].question)
+        $("#question").text(myQuestions[questionCount].question);
     
         //display answers
-        $("#answers").empty()
+        $("#answers").empty();
         for (letter in myQuestions[questionCount].answers){
-            $("#answers").append("<input type='radio' name='answer' class='answer-radio' letter='" + letter + "'>" + myQuestions[questionCount].answers[letter] + "</input>")
+            $("#answers").append("<input type='radio' name='answer' class='answer-radio' letter='" + letter + "'>" + myQuestions[questionCount].answers[letter] + "</input>");
         }
     } else {
         //if no more questions, display results of the quiz
@@ -151,36 +151,36 @@ var buildQuiz = function (){
 
 var resetTimer = function(){
     time = 30; // 30 seconds to answer each question
-    clearInterval(intervalId)
-    intervalId = setInterval(count, 1000) //one second
+    clearInterval(intervalId);
+    intervalId = setInterval(count, 1000); //one second
 }
 
 var stopTimer = function() {
-    clearInterval(intervalId)
+    clearInterval(intervalId);
 }
 
 var count = function() {
 
     //  decrement time by 1
-    time--
+    time--;
 
     //  Get the current time, pass that into the timeConverter function
-    var currentTime = timeConverter(time)
+    var currentTime = timeConverter(time);
 
     //  Show the converted time in the "timer" section.
-    $("#timer").text(currentTime)
+    $("#timer").text(currentTime);
 
     //If time runs out
     if (time === 0) {
 
-        totalUnanswered++
+        totalUnanswered++;
 
         //display correct answer and image
-        displayCorrectAnswer()
+        displayCorrectAnswer();
         
         //call buildQuiz with next question after a 4 second delay
-        questionCount++
-        setTimeout(buildQuiz, 4000)
+        questionCount++;
+        setTimeout(buildQuiz, 4000);
     }
 }
 
@@ -212,10 +212,10 @@ var timeConverter = function(t) {
         totalCorrect = 0;
         totalIncorrect = 0;
         totalUnanswered = 0;
-        $("#results").empty()
+        $("#results").empty();
 
         //Hide button
-        $("#start").hide()
+        $("#start").hide();
 
         //show first question
         questionCount = 0;
@@ -231,16 +231,16 @@ var timeConverter = function(t) {
 
         //Check to see if correct or incorrect
         if ($(this).attr("letter") === myQuestions[questionCount].correctAnswer){
-            totalCorrect++
+            totalCorrect++;
         } else{
-            totalIncorrect++
+            totalIncorrect++;
         }
         //display correct answer and image
-        displayCorrectAnswer()
+        displayCorrectAnswer();
 
         //call buildQuiz with next question after a 4 second delay
-        questionCount++
-        setTimeout(buildQuiz, 4000)
+        questionCount++;
+        setTimeout(buildQuiz, 4000);
  
     });
 
