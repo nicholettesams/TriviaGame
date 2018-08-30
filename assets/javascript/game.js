@@ -123,14 +123,14 @@ var displayResults = function(){
 }
 
 var buildQuiz = function (){
-
+    
     //clear answer from previous question
     $("#correct-answer").empty()
     
     //Check to see if we are on the last question
     if (questionCount < 8) {
         //if more questions, display question
-        console.log(myQuestions[questionCount].question)
+    
         //reset the timer
         resetTimer()
 
@@ -140,7 +140,7 @@ var buildQuiz = function (){
         //display answers
         $("#answers").empty()
         for (letter in myQuestions[questionCount].answers){
-            $("#answers").append("<input type='radio' class='answer-radio' letter='" + letter + "'>" + myQuestions[questionCount].answers[letter] + "</input>")
+            $("#answers").append("<input type='radio' name='answer' class='answer-radio' letter='" + letter + "'>" + myQuestions[questionCount].answers[letter] + "</input>")
         }
     } else {
         //if no more questions, display results of the quiz
@@ -224,6 +224,11 @@ var timeConverter = function(t) {
 
     //If a user answers the question, need an on click event
     $(document).on("click", ".answer-radio", function(){
+
+        //Prevent user from clicking again on same question
+        //Disable all unchecked radios with the same name
+        $(":radio[name='answer']:not(:checked)").attr("disabled", true); 
+
         //Check to see if correct or incorrect
         if ($(this).attr("letter") === myQuestions[questionCount].correctAnswer){
             totalCorrect++
@@ -233,10 +238,12 @@ var timeConverter = function(t) {
         //display correct answer and image
         displayCorrectAnswer()
 
+        questionAnswered = true
+
         //call buildQuiz with next question after a 4 second delay
         questionCount++
         setTimeout(buildQuiz, 4000)
-    
+ 
     });
 
   });
