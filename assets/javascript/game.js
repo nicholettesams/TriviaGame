@@ -93,13 +93,13 @@ var totalCorrect = 0;
 var totalIncorrect = 0;
 var totalUnanswered = 0;
 var questionCount = 0;
-var time = 30; //30 seconds to answer each question
+var time = 0; 
 var intervalId = 0;
 
 var displayCorrectAnswer = function(){
-    console.log("questionCount:" + questionCount)
-    console.log("displayCorrectAnswer: " + myQuestions[questionCount].correctAnswer)
-    console.log("display image:" + myQuestions[questionCount].image)
+
+    //Stop the timer
+    stopTimer()
 
     //Display correct answer text and image
     var correctLetter = myQuestions[questionCount].correctAnswer
@@ -108,7 +108,6 @@ var displayCorrectAnswer = function(){
 
 var displayResults = function(){
     //When game is over display results of the game
-    console.log("displayResults")
     clearInterval(intervalId)
     $("#timer").empty()
     $("#question").empty()
@@ -124,7 +123,6 @@ var displayResults = function(){
 }
 
 var buildQuiz = function (){
-    console.log("buildQuiz: " + questionCount)
 
     //clear answer from previous question
     $("#correct-answer").empty()
@@ -142,7 +140,6 @@ var buildQuiz = function (){
         //display answers
         $("#answers").empty()
         for (letter in myQuestions[questionCount].answers){
-            console.log(myQuestions[questionCount].answers[letter])
             $("#answers").append("<input type='radio' class='answer-radio' letter='" + letter + "'>" + myQuestions[questionCount].answers[letter] + "</input>")
         }
     } else {
@@ -153,7 +150,7 @@ var buildQuiz = function (){
 }   
 
 var resetTimer = function(){
-    time = 30; 
+    time = 30; // 30 seconds to answer each question
     clearInterval(intervalId)
     intervalId = setInterval(count, 1000) //one second
 }
@@ -166,22 +163,19 @@ var count = function() {
 
     //  decrement time by 1
     time--
-    console.log(time);
 
-    //  Get the current time, pass that into the timeConverter function,
-    //        and save the result in a variable.
+    //  Get the current time, pass that into the timeConverter function
     var currentTime = timeConverter(time)
 
-    //  Use the variable you just created to show the converted time in the "timer" section.
+    //  Show the converted time in the "timer" section.
     $("#timer").text(currentTime)
-
 
     //If time runs out
     if (time === 0) {
-        console.log("times up")
+
         totalUnanswered++
+
         //display correct answer and image
-        stopTimer()
         displayCorrectAnswer()
         
         //call buildQuiz with next question after a 4 second delay
@@ -191,7 +185,7 @@ var count = function() {
 }
 
 var timeConverter = function(t) {
-
+    //  Code taken from a class activity
     //  Takes the current time in seconds and convert it to minutes and seconds (mm:ss).
     var minutes = Math.floor(t / 60);
     var seconds = t - (minutes * 60);
@@ -229,16 +223,14 @@ var timeConverter = function(t) {
     });
 
     //If a user answers the question, need an on click event
-    $(document).on('click', '.answer-radio', function(){
+    $(document).on("click", ".answer-radio", function(){
         //Check to see if correct or incorrect
-        console.log("answer clicked:" + $(this).attr("letter"))
         if ($(this).attr("letter") === myQuestions[questionCount].correctAnswer){
             totalCorrect++
         } else{
             totalIncorrect++
         }
         //display correct answer and image
-        stopTimer()
         displayCorrectAnswer()
 
         //call buildQuiz with next question after a 4 second delay
