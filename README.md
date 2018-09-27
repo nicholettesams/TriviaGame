@@ -1,5 +1,16 @@
 # TriviaGame
 
+# Assignment
+Create a Trivia game using JavaScript for the logic and jQuery to manipulate HTML. 
+
+# Solution
+The purpose of this assignment was to use timers. setInterval was used for the timer for each question. setTimeout was used to move to the next quester after the correct answer displayed. The HTML is very dynamic with the javascript doing a lot of DOM manipulation.  An array of objects was used to keep track of questions, answers, correct answer and image.
+
+# Technologies
+HTML, CSS, JavaScript, Bootstrap, jQuery, media queries
+
+# Game Play
+
 Rules:
 
 There are a total of 8 multiple choice questions.
